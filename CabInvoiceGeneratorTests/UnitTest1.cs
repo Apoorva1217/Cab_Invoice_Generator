@@ -140,7 +140,7 @@ namespace CabInvoiceGeneratorTests
             invoiceGenerator = new InvoiceGenerator(RideType.NORMAL);
             double distance = 2.0;
             int time = -5;
-            string expected = "Invalid Distance";
+            string expected = "Invalid Time";
             try
             {
                 ///calculating fare
@@ -151,6 +151,26 @@ namespace CabInvoiceGeneratorTests
                 ///asserting values
                 Assert.AreEqual(expected, exception);
             }
+        }
+
+        /// <summary>
+        /// Test Case for Given Cab Invoice When UserId And Rides Pass Should Return Invoice Summary
+        /// </summary>
+        [Test]
+        public void GivenCabInvoice_WhenUserIdAndRidesPass_ShouldReturnInvoiceSummary()
+        {
+            ///creating instance of invoice generator for normal ride
+            invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
+            string userId = "Appu12";
+            Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
+            invoiceGenerator.AddRides(userId, rides);
+
+            ///generating summary for rides
+            InvoiceSummary invoiceSummary = invoiceGenerator.GetInvoiceSummary(userId);
+            InvoiceSummary expectedsummary = new InvoiceSummary(2, 60.0);
+
+            ///asserting values
+            Assert.AreEqual(expectedsummary, invoiceSummary);
         }
     }
 }
