@@ -30,25 +30,6 @@ namespace CabInvoiceGeneratorTests
         }
 
         /// <summary>
-        /// Test Case for checking calculate fare function for Premium
-        /// </summary>
-        [Test]
-        public void GivenDistanceAndTimeForPremium_ShouldReturnTotalFare()
-        {
-            ///creating instance of InvoiceGenerator for normal ride
-            invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
-            double distance = 2.0;
-            int time = 5;
-
-            ///calculating fare
-            double fare = invoiceGenerator.CalculateFare(distance, time);
-            double expected = 40;
-
-            ///asserting values
-            Assert.AreEqual(expected, fare);
-        }
-
-        /// <summary>
         /// Test Case for checking calculate fare function for Normal multiple rides summary
         /// </summary>
         [Test]
@@ -61,24 +42,6 @@ namespace CabInvoiceGeneratorTests
             ///generating summary for rides
             InvoiceSummary invoiceSummary = invoiceGenerator.CalculateFare(rides);
             InvoiceSummary expectedsummary = new InvoiceSummary(2, 30.0);
-
-            ///asserting values
-            Assert.AreEqual(expectedsummary, invoiceSummary);
-        }
-
-        /// <summary>
-        /// Test Case for checking calculate fare function for Premium multiple rides summary
-        /// </summary>
-        [Test]
-        public void GivenMultipleRidesForPremium_ShouldReturnInvoiceSummary()
-        {
-            ///creating instance of invoice generator for normal ride
-            invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
-            Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
-
-            ///generating summary for rides
-            InvoiceSummary invoiceSummary = invoiceGenerator.CalculateFare(rides);
-            InvoiceSummary expectedsummary = new InvoiceSummary(2, 60.0);
 
             ///asserting values
             Assert.AreEqual(expectedsummary, invoiceSummary);
@@ -157,7 +120,64 @@ namespace CabInvoiceGeneratorTests
         /// Test Case for Given Cab Invoice When UserId And Rides Pass Should Return Invoice Summary
         /// </summary>
         [Test]
-        public void GivenCabInvoice_WhenUserIdAndRidesPass_ShouldReturnInvoiceSummary()
+        public void GivenCabInvoiceForNormal_WhenUserIdAndRidesPass_ShouldReturnInvoiceSummary()
+        {
+            ///creating instance of invoice generator for normal ride
+            invoiceGenerator = new InvoiceGenerator(RideType.NORMAL);
+            string userId = "Appu12";
+            Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
+            invoiceGenerator.AddRides(userId, rides);
+
+            ///generating summary for rides
+            InvoiceSummary invoiceSummary = invoiceGenerator.GetInvoiceSummary(userId);
+            InvoiceSummary expectedsummary = new InvoiceSummary(2, 30.0);
+
+            ///asserting values
+            Assert.AreEqual(expectedsummary, invoiceSummary);
+        }
+
+        /// <summary>
+        /// Test Case for checking calculate fare function for Premium
+        /// </summary>
+        [Test]
+        public void GivenDistanceAndTimeForPremium_ShouldReturnTotalFare()
+        {
+            ///creating instance of InvoiceGenerator for normal ride
+            invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
+            double distance = 2.0;
+            int time = 5;
+
+            ///calculating fare
+            double fare = invoiceGenerator.CalculateFare(distance, time);
+            double expected = 40;
+
+            ///asserting values
+            Assert.AreEqual(expected, fare);
+        }
+
+        /// <summary>
+        /// Test Case for checking calculate fare function for Premium multiple rides summary
+        /// </summary>
+        [Test]
+        public void GivenMultipleRidesForPremium_ShouldReturnInvoiceSummary()
+        {
+            ///creating instance of invoice generator for normal ride
+            invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
+            Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
+
+            ///generating summary for rides
+            InvoiceSummary invoiceSummary = invoiceGenerator.CalculateFare(rides);
+            InvoiceSummary expectedsummary = new InvoiceSummary(2, 60.0);
+
+            ///asserting values
+            Assert.AreEqual(expectedsummary, invoiceSummary);
+        }
+
+        /// <summary>
+        /// Test Case for Given Cab Invoice When UserId And Rides Pass Should Return Invoice Summary
+        /// </summary>
+        [Test]
+        public void GivenCabInvoiceForPremium_WhenUserIdAndRidesPass_ShouldReturnInvoiceSummary()
         {
             ///creating instance of invoice generator for normal ride
             invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
