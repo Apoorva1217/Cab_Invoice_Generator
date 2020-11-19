@@ -1,7 +1,14 @@
-﻿/// <summary>
-/// Enum for cab service class type
-/// </summary>
-public enum RideType
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CabInvoiceGenerator
 {
-    NORMAL, PREMIUM
+    /// <summary>
+    /// Enum for cab service class type
+    /// </summary>
+    public enum RideType
+    {
+        NORMAL, PREMIUM
+    }
 }
